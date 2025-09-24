@@ -12,7 +12,7 @@ In this study, we employ a Multi-Layer Perceptron (MLP) regression model to clas
 
 # Objective
 
-Accurate identification of blood cell types is critical for medical diagnostics and treatment planning. Traditional manual classification via microscopy is labour intensive, can be subjective, and is susceptible to errors. This project investigates the application of a Multi-Layer Perceptron (MLP) model to automate blood cell classification using the Blood Cell Detection Dataset (BCDD). The goal is to assess the MLP's ability to learn distinctive features from cell images and deliver reliable classification performance, highlighting the potential of neural networks to enhance clinical decision-making with faster, more consistent outcomes.
+Accurate identification of blood cell types is critical for medical diagnostics and treatment planning. Traditional manual classification via microscopy is labour intensive, can be subjective, and is susceptible to errors. This project investigates the application of a Multi-Layer Perceptron (MLP) model to automate blood cell classification using the Blood Cell Detection Dataset (BCDD). The goal is to assess the MLP's ability to learn distinctive features from cell images and deliver reliable classification performance, highlighting the potential of neural networks to enhance clinical decision-making with faster, more consistent outcomes. This is a method of supervised machine learning.
 
 # Data Processing
 
@@ -38,9 +38,12 @@ To be PAC-learnable, the probability that our algorithm succeeds, should be freq
 Pr⁡[Error(k)≤ε]≥1- δ
 ```
 
-## Results
+# Results
 
 
+# Discussions
+
+Future iterations should split the white blood cells into their specific types, as white blood cells encompass many categories, such as granulocytes and lymphocytes. The current data set doesn't have this labelled, but future data-sets could include this.
 
 # References
 
