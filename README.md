@@ -1,24 +1,6 @@
 # Blood Cell Classification with Machine Learning
 
-Jake Spencer Walklate (14030112)
-
-Table of Contents
-
-- [Resources 1](#_Toc209617707)
-
-[Abstract 1](#_Toc209617708)
-
-[Objective 1](#_Toc209617709)
-
-[Data Processing 2](#_Toc209617710)
-
-[PAC analysis 2](#_Toc209617711)
-
-[Samples sizes 2](#_Toc209617712)
-
-[PAC algorithm 2](#_Toc209617713)
-
-[Results 2](#_Toc209617714)
+Jake Spencer Walklate
 
 # Resources
 
