@@ -68,9 +68,13 @@ Pr⁡[Error(k)≤ε]≥1- δ
 ## PAC results
 
 PAC-Learnability Analysis:
+
 Chosen epsilon (error margin): 0.05
+
 Chosen delta (failure probability): 0.05
+
 Required sample size for PAC-learnability: n >= 738
+
 Actual training samples used: 1882
 
 # Results
