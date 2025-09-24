@@ -65,6 +65,14 @@ To be PAC-learnable, the probability that our algorithm succeeds, should be freq
 Pr⁡[Error(k)≤ε]≥1- δ
 ```
 
+## PAC results
+
+PAC-Learnability Analysis:
+Chosen epsilon (error margin): 0.05
+Chosen delta (failure probability): 0.05
+Required sample size for PAC-learnability: n >= 738
+Actual training samples used: 1882
+
 # Results
 
 The CNN achieved high accuracy on the test set, with strong performance across all cell classes. The training process was monitored using accuracy and loss curves, and a confusion matrix was generated to visualize classification performance. The model demonstrated reliable generalization to unseen cell images, confirming the effectiveness of the approach.
