@@ -44,10 +44,16 @@ For a PAC analysis, we have a hypothesis family (), then we apply a learning alg
 
 To calculate if our algorithm is PAC-learnable, we select a sample size n.
 
-$`n≥(1/(2ε^2)) ln⁡(2/δ)`$
+```math
+n≥(1/(2ε^2)) ln⁡(2/δ)
+```
 
 ## PAC algorithm
 
 To be PAC-learnable, the probability that our algorithm succeeds, should be frequent enough that it exceeds the defined success rate.
+
+```math
+Pr⁡[Error(k)≤ε]≥1- δ
+```
 
 ## Results
