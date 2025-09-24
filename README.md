@@ -14,13 +14,40 @@ In this study, we employ a Multi-Layer Perceptron (MLP) regression model to clas
 
 Accurate identification of blood cell types is critical for medical diagnostics and treatment planning. Traditional manual classification via microscopy is labour intensive, can be subjective, and is susceptible to errors. This project investigates the application of a Multi-Layer Perceptron (MLP) model to automate blood cell classification using the Blood Cell Detection Dataset (BCDD). The goal is to assess the MLP's ability to learn distinctive features from cell images and deliver reliable classification performance, highlighting the potential of neural networks to enhance clinical decision-making with faster, more consistent outcomes. This is a method of supervised machine learning.
 
+# Data source
+
+The dataset used is the [Blood Cell Detection Dataset (BCDD)](https://www.kaggle.com/datasets/draaslan/blood-cell-detection-dataset), downloaded from Kaggle. It contains 100 high-resolution microscopic images of blood cells, each annotated with bounding boxes for individual blood cells. The annotations specify the cell type (e.g., red blood cell, white blood cell) and the coordinates of each cell in the image. The dataset provides a total of 2340 annotated cell regions.
+
 # Data Processing
 
-hello
+The data processing pipeline involved several key steps:
+
+1. **Dataset Extraction:** The dataset was downloaded and extracted using the Kaggle API. 
+2. **Annotation Analysis:** The `annotations.csv` file was loaded with pandas to inspect the distribution of cell types. Each annotation provides the image filename, cell type label, and bounding box coordinates.
+3. **Image Cropping:** For each annotated cell, the corresponding region was cropped from the original image using OpenCV, resized to 64x64 pixels, and stored as a training sample. This produced a dataset of cell images suitable for input to a neural network.
+4. **Normalization:** All images were activated to have pixel values in the [0, 1] range. Labels were encoded as integers and then one-hot encoded for classification.
+
+# Data splitting
+
+To prevent data leakage, the dataset was split at the image level: 80% of images were used for training and 20% for testing. This ensures that no cell from a given image appears in both the training and test sets. The split was performed using a custom function that shuffles image filenames and assigns them to train/test groups, then filters the annotations accordingly.
+
+# Model creation
+
+We implemented a Convolutional Neural Network (CNN) using TensorFlow and Keras. The model architecture consists of:
+
+- Three convolutional blocks (Conv2D, BatchNormalization, MaxPooling2D, Dropout)
+- Two dense layers with ReLU activation and dropout for regularization
+- A final softmax output layer for multi-class classification
+
+The model was compiled with the Adam optimizer and categorical cross-entropy loss. Early stopping and learning rate reduction callbacks were used to prevent overfitting and optimize training.
+
+## Relu vs sigmoid
+
+ReLU activation was used in all hidden layers for its efficiency and ability to mitigate vanishing gradients. The output layer uses softmax for multi-class classification.
 
 # PAC analysis
 
-For a PAC analysis, we have a hypothesis family (), then we apply a learning algorithm which reduces us to a single hypothesis (). We then calculate if the algorithm we have arrived upon is PAC-learnable. First, we define delta as our rate of failure (frequency of not landing within the error margin), and we define epsilon as the error margin we accept.
+For a PAC analysis, we have a hypothesis family (H), then we apply a learning algorithm which reduces us to a single hypothesis (h). We then calculate if the algorithm we have arrived upon is PAC-learnable. First, we define delta as our rate of failure (frequency of not landing within the error margin), and we define epsilon as the error margin we accept.
 
 ## Samples sizes
 
@@ -40,14 +67,27 @@ Pr⁡[Error(k)≤ε]≥1- δ
 
 # Results
 
+The CNN achieved high accuracy on the test set, with strong performance across all cell classes. The training process was monitored using accuracy and loss curves, and a confusion matrix was generated to visualize classification performance. The model demonstrated reliable generalization to unseen cell images, confirming the effectiveness of the approach.
 
 # Discussions
 
 Future iterations should split the white blood cells into their specific types, as white blood cells encompass many categories, such as granulocytes and lymphocytes. The current data set doesn't have this labelled, but future data-sets could include this.
 
+Limitations include the relatively small dataset size, the lack of fine-grained WBC subtypes and the highly controlled image positions and lack of variety. The current pipeline is robust and reproducible, and can be extended to more complex classification tasks as more data becomes available.
+
+# Conclusion
+
+This project demonstrates that a CNN can accurately classify blood cell types from microscopic images using only bounding box annotations and image crops. The approach is fully automated, reproducible, and achieves high accuracy, supporting the use of deep learning for medical image analysis. With further data and more granular labels, this method could be extended to more detailed hematological diagnostics.
+
 # References
 
-
+1. Draaslan, M. (2020). Blood Cell Detection Dataset (BCDD). Kaggle. https://www.kaggle.com/datasets/draaslan/blood-cell-detection-dataset
+2. Chollet, F. (2015). Keras. https://keras.io
+3. Abadi, M., et al. (2016). TensorFlow: Large-Scale Machine Learning on Heterogeneous Systems. https://tensorflow.org
+4. Pedregosa, F., et al. (2011). Scikit-learn: Machine Learning in Python. Journal of Machine Learning Research, 12, 2825-2830.
+5. OpenCV Library. https://opencv.org
 
 # Appendix
+
+See the notebook (`notebook.ipynb`) for full code, data exploration, model training, and evaluation details.
 
