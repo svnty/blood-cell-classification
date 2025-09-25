@@ -51,7 +51,7 @@ We implemented a Multi-Layer Perceptron (MLP) using TensorFlow and Keras. The mo
 
 The model was compiled with the Adam optimizer and categorical cross-entropy loss. Early stopping and learning rate reduction callbacks were used to prevent overfitting and optimize training.
 
-## Relu vs sigmoid
+## ReLU vs sigmoid vs tanh
 
 ReLU activation was used in all hidden layers for its efficiency and ability to mitigate vanishing gradients. The output layer uses softmax for multi-class classification.
 
@@ -89,9 +89,23 @@ PAC-Learnability Analysis:
 
 The training set size meets the PAC-learnability requirement for these parameters.
 
+# Loss function
+
+For this multi-class classification task, we use the categorical cross-entropy loss function. This loss function measures the difference between the predicted probability distribution `p_i` (output by the softmax layer) and the true class labels (one-hot encoded). Minimizing categorical cross-entropy encourages the model to assign high probability to the correct class and low probability to incorrect classes.
+
+Mathematically, for a single sample with true class `y_i` and predicted probabilities `p_i`, the loss is:
+
+```math
+L = -\sum_{i=1}^{C} y_i \log(p_i)
+```
+
+where `C` is the number of classes, `y_i` is 1 if class `i` is the true class and 0 otherwise (due to one-hot encoding), and `p_i` is the predicted probability for class `i`.
+
+This loss is differentiable and works well with backpropagation, making it the standard choice for neural networks in multi-class classification problems.
+
 # Results
 
-The CNN achieved high accuracy on the test set, with strong performance across all cell classes. The training process was monitored using accuracy and loss curves, and a confusion matrix was generated to visualize classification performance. The model demonstrated reliable generalization to unseen cell images, confirming the effectiveness of the approach.
+The MLP achieved high accuracy on the test set, with strong performance across all cell classes. The training process was monitored using accuracy and loss curves, and a confusion matrix was generated to visualize classification performance. The model demonstrated reliable generalization to unseen cell images, confirming the effectiveness of the approach.
 
 # Discussions
 
@@ -99,9 +113,11 @@ Future iterations should split the white blood cells into their specific types, 
 
 Limitations include the relatively small dataset size, the lack of fine-grained WBC subtypes and the highly controlled image positions and lack of variety. The current pipeline is robust and reproducible, and can be extended to more complex classification tasks as more data becomes available.
 
+As our images are 256x256 pixels and have 3 colour channels (R, G, B), our first layer has 196,608 input neurons. The MLP then scales exponentially as the layers increase, it is possible that our model contains as many as 100 million parameters. Our network of neurons could be considered enormous. 
+
 # Conclusion
 
-This project demonstrates that a CNN can accurately classify blood cell types from microscopic images using only bounding box annotations and image crops. The approach is fully automated, reproducible, and achieves high accuracy, supporting the use of deep learning for medical image analysis. With further data and more granular labels, this method could be extended to more detailed hematological diagnostics.
+This project demonstrates that a MLP can accurately classify blood cell types from microscopic images using only bounding box annotations and image crops. The approach is fully automated, reproducible, and achieves high accuracy, supporting the use of deep learning for medical image analysis. With further data and more granular labels, this method could be extended to more detailed hematological diagnostics.
 
 # References
 
