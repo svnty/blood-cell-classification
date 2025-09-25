@@ -107,6 +107,10 @@ where `C` is the number of classes, `y_i` is 1 if class `i` is the true class an
 
 This loss is differentiable and works well with backpropagation, making it the standard choice for neural networks in multi-class classification problems.
 
+### Training monitoring
+
+During training, we use the EarlyStopping callback to monitor the validation loss (`val_loss`). After each epoch, the model checks if the validation loss has improved. If it does not improve for a set number of epochs (defined by the patience parameter), training is stopped early to prevent overfitting. This ensures the model does not continue training once it stops making progress on unseen validation data, leading to better generalization and more efficient training.
+
 ## PAC analysis
 
 For a PAC analysis, we have a hypothesis family (H) which we defined as a MLP, then we apply our learning algorithm (A) which reduces us to a single hypothesis (h). We then calculate if the algorithm we have arrived upon is PAC-learnable. First, we define delta as our rate of failure (frequency of not landing within the error margin), and we define epsilon as the error margin we accept.
@@ -150,7 +154,7 @@ Future iterations should split the white blood cells into their specific types, 
 
 Limitations include the relatively small dataset size, the lack of fine-grained WBC subtypes and the highly controlled image positions and lack of variety. The current pipeline is robust and reproducible, and can be extended to more complex classification tasks as more data becomes available.
 
-As our images are 256x256 pixels and have 3 colour channels (R, G, B), our first layer has 196,608 input neurons. The MLP then scales exponentially as the layers increase, it is possible that our model contains as many as 100 million parameters. Our network of neurons could be considered enormous. 
+As our images are 256x256 pixels and have 3 colour channels (R, G, B), our first layer has 196,608 input neurons. The MLP then scales exponentially as the layers increase, it is possible that our model contains as many as 100 million parameters. Our network of neurons currently at 6,423,810 params could be considered enormous.
 
 # Conclusion
 
