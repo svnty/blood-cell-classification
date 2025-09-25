@@ -16,8 +16,6 @@ Accurate identification of blood cell types is critical for medical diagnostics 
 
 # Method
 
-## Multi-Layer Perceptron (MLP) Overview
-
 In this project, we use a Multi-Layer Perceptron (MLP) model for blood cell classification. An MLP is a type of fully connected neural network, where each neuron in one layer is connected to every neuron in the next layer. The network consists of an input layer, one or more hidden layers, and an output layer.
 
 Each neuron receives inputs from the previous layer, multiplies each input by a learned weight, sums the results, adds a bias, and passes the result through a nonlinear activation function (such as ReLU). This nonlinearity allows the network to learn complex relationships in the data. The output of each neuron becomes the input for the next layer, allowing information to flow forward through the network.
