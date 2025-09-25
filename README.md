@@ -69,6 +69,40 @@ ReLU activation was used in all hidden layers for its efficiency and ability to 
 ReLU: a = f(z) = max(0, z)
 ```
 
+## Backpropagation
+
+Backpropagation is the core algorithm (A) used to train neural networks, including Multi-Layer Perceptrons (MLPs). After the model computes its output and the loss is calculated, backpropagation works by differentiating the loss with respect to each weight in the network, moving backwards from the output layer to the input layer.
+
+This process uses the chain rule from calculus to efficiently compute gradients for each neuron in every layer. The chain rule allows the algorithm to propagate the error signal through the network, layer by layer, so that each neuron's weights are updated in proportion to their contribution to the final error. This enables the network to learn complex mappings from input to output by iteratively adjusting its parameters to minimize the loss.
+
+Backpropagation is essential for deep learning, as it makes it possible to train large networks with many layers and millions of parameters.
+
+## Final layer
+
+In the final layer of the MLP, the network produces a probability distribution over all possible cell classes using the softmax function. The softmax function takes the raw outputs (logits) from the last dense layer and transforms them into probabilities that sum to 1. This allows the model to interpret its output as the likelihood of each class.
+
+Mathematically, the softmax function is defined as:
+
+```math
+p_i = softmax(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{C} e^{z_j}}
+```
+
+The class with the highest probability is selected as the model's prediction. Softmax is essential for multi-class classification tasks, as it enables the network to output interpretable probabilities for each class.
+
+## Loss function
+
+For this multi-class classification task, we use the categorical cross-entropy loss function (L). This loss function measures the difference between the predicted probability distribution `p_i` (output by the softmax layer) and the true class labels (one-hot encoded). Minimizing categorical cross-entropy encourages the model to assign high probability to the correct class and low probability to incorrect classes.
+
+Mathematically, for a single sample with true class `y_i` and predicted probabilities `p_i`, the loss is:
+
+```math
+L = -\sum_{i=1}^{C} y_i \log(p_i)
+```
+
+where `C` is the number of classes, `y_i` is 1 if class `i` is the true class and 0 otherwise (due to one-hot encoding), and `p_i` is the predicted probability for class `i`.
+
+This loss is differentiable and works well with backpropagation, making it the standard choice for neural networks in multi-class classification problems.
+
 # PAC analysis
 
 For a PAC analysis, we have a hypothesis family (H) which we defined as a MLP, then we apply our learning algorithm (A) which reduces us to a single hypothesis (h). We then calculate if the algorithm we have arrived upon is PAC-learnable. First, we define delta as our rate of failure (frequency of not landing within the error margin), and we define epsilon as the error margin we accept.
@@ -99,26 +133,6 @@ PAC-Learnability Analysis:
 - Actual training samples used: 1882
 
 The training set size meets the PAC-learnability requirement for these parameters.
-
-# Loss function / Backpropagation
-
-Backpropagation is the core algorithm (A) used to train neural networks, including Multi-Layer Perceptrons (MLPs). After the model computes its output and the loss is calculated, backpropagation works by differentiating the loss with respect to each weight in the network, moving backwards from the output layer to the input layer.
-
-This process uses the chain rule from calculus to efficiently compute gradients for each neuron in every layer. The chain rule allows the algorithm to propagate the error signal through the network, layer by layer, so that each neuron's weights are updated in proportion to their contribution to the final error. This enables the network to learn complex mappings from input to output by iteratively adjusting its parameters to minimize the loss.
-
-Backpropagation is essential for deep learning, as it makes it possible to train large networks with many layers and millions of parameters.
-
-For this multi-class classification task, we use the categorical cross-entropy loss function (L). This loss function measures the difference between the predicted probability distribution `p_i` (output by the softmax layer) and the true class labels (one-hot encoded). Minimizing categorical cross-entropy encourages the model to assign high probability to the correct class and low probability to incorrect classes.
-
-Mathematically, for a single sample with true class `y_i` and predicted probabilities `p_i`, the loss is:
-f(H)
-```math
-L = -\sum_{i=1}^{C} y_i \log(p_i)
-```
-
-where `C` is the number of classes, `y_i` is 1 if class `i` is the true class and 0 otherwise (due to one-hot encoding), and `p_i` is the predicted probability for class `i`.
-
-This loss is differentiable and works well with backpropagation, making it the standard choice for neural networks in multi-class classification problems.
 
 # Results
 
