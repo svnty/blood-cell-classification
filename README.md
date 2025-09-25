@@ -12,7 +12,7 @@ Jake Spencer Walklate
 
 In this study, we employ a Multi-Layer Perceptron (MLP) regression model to classify cell types using the publicly available Blood Cell Detection Dataset (BCDD). The dataset comprises annotated microscopic images of various blood cell classes, providing a robust basis for supervised learning. Our approach involved preparing the data, training the MLP to recognize features in the cells, and then testing its ability to correctly classify new, unseen samples.
 
-# Objective
+# Introduction
 
 Accurate identification of blood cell types is critical for medical diagnostics and treatment planning. Traditional manual classification via microscopy is labour intensive, can be subjective, and is susceptible to errors. This project investigates the application of a Multi-Layer Perceptron (MLP) model to automate blood cell classification using the Blood Cell Detection Dataset (BCDD). The goal is to assess the MLP's ability to learn distinctive features from cell images and deliver reliable classification performance, highlighting the potential of neural networks to enhance clinical decision-making with faster, more consistent outcomes. 
 
@@ -26,11 +26,13 @@ During training, the network uses backpropagation to adjust its weights. The out
 
 In the final output layer, the network produces a probability distribution over the possible cell classes using the softmax function. The class with the highest probability is selected as the prediction.
 
-# Data source
+## Data
+
+### Data source
 
 The dataset used is the [Blood Cell Detection Dataset (BCDD)](https://www.kaggle.com/datasets/draaslan/blood-cell-detection-dataset), downloaded from Kaggle. It contains 100 high-resolution microscopic images of blood cells, each annotated with bounding boxes for individual blood cells. The annotations specify the cell type (e.g., red blood cell, white blood cell) and the coordinates of each cell in the image. The dataset provides a total of 2340 annotated cell regions.
 
-# Data Processing
+### Data Processing
 
 The data processing pipeline involved several key steps:
 
@@ -39,11 +41,13 @@ The data processing pipeline involved several key steps:
 3. **Image Cropping:** For each annotated cell, the corresponding region was cropped from the original image using OpenCV, resized to 64x64 pixels, and stored as a training sample. This produced a dataset of cell images suitable for input to a neural network.
 4. **Normalization:** All images were activated to have pixel values in the [0, 1] range. Labels were encoded as integers and then one-hot encoded for classification.
 
-# Data splitting
+### Data splitting
 
 To prevent data leakage, the dataset was split at the image level: 80% of images were used for training and 20% for testing. This ensures that no cell from a given image appears in both the training and test sets. The split was performed using a custom function that shuffles image filenames and assigns them to train/test groups, then filters the annotations accordingly.
 
-# Model creation
+## Model
+
+### Architecture
 
 We implemented a Multi-Layer Perceptron (MLP) using TensorFlow and Keras. The model architecture consists of:
 
@@ -53,7 +57,7 @@ We implemented a Multi-Layer Perceptron (MLP) using TensorFlow and Keras. The mo
 
 The model was compiled with the Adam optimizer and categorical cross-entropy loss. Early stopping and learning rate reduction callbacks were used to prevent overfitting and optimize training.
 
-## Neurons
+### Neurons
 
 In a neuron layer of a Multi-Layer Perceptron (MLP), each neuron receives inputs from all neurons in the previous layer. For the input layer, each pixel value from the image is treated as an input, that is each neuron receives every pixel as input. Each neuron computes a weighted sum of its inputs, adds a bias, and then applies a nonlinear activation function (such as ReLU):
 
@@ -61,7 +65,7 @@ In a neuron layer of a Multi-Layer Perceptron (MLP), each neuron receives inputs
 z = \sum_{i=1}^{N} w_i x_i + b
 ```
 
-## ReLU vs sigmoid vs tanh
+### ReLU vs sigmoid vs tanh
 
 ReLU activation was used in all hidden layers for its efficiency and ability to mitigate vanishing gradients. The output layer uses softmax for multi-class classification on the logits. ReLU is defined as the max of the pre-activation linear output, any values less than 0 become 0.
 
@@ -69,7 +73,7 @@ ReLU activation was used in all hidden layers for its efficiency and ability to 
 ReLU: a = f(z) = max(0, z)
 ```
 
-## Backpropagation
+### Backpropagation
 
 Backpropagation is the core algorithm (A) used to train neural networks, including Multi-Layer Perceptrons (MLPs). After the model computes its output and the loss is calculated, backpropagation works by differentiating the loss with respect to each weight in the network, moving backwards from the output layer to the input layer.
 
@@ -77,7 +81,7 @@ This process uses the chain rule from calculus to efficiently compute gradients 
 
 Backpropagation is essential for deep learning, as it makes it possible to train large networks with many layers and millions of parameters.
 
-## Final layer
+### Final layer
 
 In the final layer of the MLP, the network produces a probability distribution over all possible cell classes using the softmax function. The softmax function takes the raw outputs (logits) from the last dense layer and transforms them into probabilities that sum to 1. This allows the model to interpret its output as the likelihood of each class.
 
@@ -89,7 +93,7 @@ p_i = softmax(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{C} e^{z_j}}
 
 The class with the highest probability is selected as the model's prediction. Softmax is essential for multi-class classification tasks, as it enables the network to output interpretable probabilities for each class.
 
-## Loss function
+### Loss function
 
 For this multi-class classification task, we use the categorical cross-entropy loss function (L). This loss function measures the difference between the predicted probability distribution `p_i` (output by the softmax layer) and the true class labels (one-hot encoded). Minimizing categorical cross-entropy encourages the model to assign high probability to the correct class and low probability to incorrect classes.
 
@@ -103,11 +107,11 @@ where `C` is the number of classes, `y_i` is 1 if class `i` is the true class an
 
 This loss is differentiable and works well with backpropagation, making it the standard choice for neural networks in multi-class classification problems.
 
-# PAC analysis
+## PAC analysis
 
 For a PAC analysis, we have a hypothesis family (H) which we defined as a MLP, then we apply our learning algorithm (A) which reduces us to a single hypothesis (h). We then calculate if the algorithm we have arrived upon is PAC-learnable. First, we define delta as our rate of failure (frequency of not landing within the error margin), and we define epsilon as the error margin we accept.
 
-## Samples sizes
+### Samples sizes
 
 To calculate if our algorithm is PAC-learnable, we select a sample size n.
 
@@ -115,7 +119,7 @@ To calculate if our algorithm is PAC-learnable, we select a sample size n.
 n≥(1/(2ε^2)) ln⁡(2/δ)
 ```
 
-## Algorithm
+### Algorithm
 
 To be PAC-learnable, the probability that our algorithm succeeds, should be frequent enough that it exceeds the defined success rate.
 
@@ -123,7 +127,7 @@ To be PAC-learnable, the probability that our algorithm succeeds, should be freq
 Pr⁡[Error(k)≤ε]≥1-δ
 ```
 
-## Results
+### Results
 
 PAC-Learnability Analysis:
 
