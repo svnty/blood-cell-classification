@@ -53,9 +53,17 @@ We implemented a Multi-Layer Perceptron (MLP) using TensorFlow and Keras. The mo
 
 The model was compiled with the Adam optimizer and categorical cross-entropy loss. Early stopping and learning rate reduction callbacks were used to prevent overfitting and optimize training.
 
+## Neurons
+
+In a neuron layer of a Multi-Layer Perceptron (MLP), each neuron receives inputs from all neurons in the previous layer. For the input layer, each pixel value from the image is treated as an input, that is each neuron receives every pixel as input. Each neuron computes a weighted sum of its inputs, adds a bias, and then applies a nonlinear activation function (such as ReLU):
+
+```math
+z = \sum_{i=1}^{N} w_i x_i + b
+```
+
 ## ReLU vs sigmoid vs tanh
 
-ReLU activation was used in all hidden layers for its efficiency and ability to mitigate vanishing gradients. The output layer uses softmax for multi-class classification. ReLU is defined as the max of the pre-activation linear output, any values less than 0 become 0.
+ReLU activation was used in all hidden layers for its efficiency and ability to mitigate vanishing gradients. The output layer uses softmax for multi-class classification on the logits. ReLU is defined as the max of the pre-activation linear output, any values less than 0 become 0.
 
 ```math
 ReLU: a = f(z) = max(0, z)
