@@ -12,7 +12,19 @@ In this study, we employ a Multi-Layer Perceptron (MLP) regression model to clas
 
 # Objective
 
-Accurate identification of blood cell types is critical for medical diagnostics and treatment planning. Traditional manual classification via microscopy is labour intensive, can be subjective, and is susceptible to errors. This project investigates the application of a Multi-Layer Perceptron (MLP) model to automate blood cell classification using the Blood Cell Detection Dataset (BCDD). The goal is to assess the MLP's ability to learn distinctive features from cell images and deliver reliable classification performance, highlighting the potential of neural networks to enhance clinical decision-making with faster, more consistent outcomes. This is a method of supervised machine learning.
+Accurate identification of blood cell types is critical for medical diagnostics and treatment planning. Traditional manual classification via microscopy is labour intensive, can be subjective, and is susceptible to errors. This project investigates the application of a Multi-Layer Perceptron (MLP) model to automate blood cell classification using the Blood Cell Detection Dataset (BCDD). The goal is to assess the MLP's ability to learn distinctive features from cell images and deliver reliable classification performance, highlighting the potential of neural networks to enhance clinical decision-making with faster, more consistent outcomes. 
+
+# Method
+
+## Multi-Layer Perceptron (MLP) Overview
+
+In this project, we use a Multi-Layer Perceptron (MLP) model for blood cell classification. An MLP is a type of fully connected neural network, where each neuron in one layer is connected to every neuron in the next layer. The network consists of an input layer, one or more hidden layers, and an output layer.
+
+Each neuron receives inputs from the previous layer, multiplies each input by a learned weight, sums the results, adds a bias, and passes the result through a nonlinear activation function (such as ReLU). This nonlinearity allows the network to learn complex relationships in the data. The output of each neuron becomes the input for the next layer, allowing information to flow forward through the network.
+
+During training, the network uses backpropagation to adjust its weights. The output of the network is compared to the true label, and the error is propagated backward through the layers. The weights are updated to minimize this error, allowing the network to learn from the data and improve its predictions over time.
+
+In the final output layer, the network produces a probability distribution over the possible cell classes using the softmax function. The class with the highest probability is selected as the prediction.
 
 # Data source
 
@@ -33,10 +45,10 @@ To prevent data leakage, the dataset was split at the image level: 80% of images
 
 # Model creation
 
-We implemented a Convolutional Neural Network (CNN) using TensorFlow and Keras. The model architecture consists of:
+We implemented a Multi-Layer Perceptron (MLP) using TensorFlow and Keras. The model architecture consists of:
 
-- Three convolutional blocks (Conv2D, BatchNormalization, MaxPooling2D, Dropout)
-- Two dense layers with ReLU activation and dropout for regularization
+- Input layer that flattens the image data
+- Two fully connected (dense) layers with ReLU activation and dropout for regularization
 - A final softmax output layer for multi-class classification
 
 The model was compiled with the Adam optimizer and categorical cross-entropy loss. Early stopping and learning rate reduction callbacks were used to prevent overfitting and optimize training.
@@ -57,7 +69,7 @@ To calculate if our algorithm is PAC-learnable, we select a sample size n.
 n≥(1/(2ε^2)) ln⁡(2/δ)
 ```
 
-## PAC algorithm
+## Algorithm
 
 To be PAC-learnable, the probability that our algorithm succeeds, should be frequent enough that it exceeds the defined success rate.
 
@@ -65,7 +77,7 @@ To be PAC-learnable, the probability that our algorithm succeeds, should be freq
 Pr⁡[Error(k)≤ε]≥1- δ
 ```
 
-## PAC results
+## Results
 
 PAC-Learnability Analysis:
 
