@@ -128,7 +128,7 @@ n≥(1/(2ε^2)) ln⁡(2/δ)
 To be PAC-learnable, the probability that our algorithm succeeds, should be frequent enough that it exceeds the defined success rate.
 
 ```math
-Pr⁡[Error(k)≤ε]≥1-δ
+Pr⁡[Error(h)≤ε]≥1-δ
 ```
 
 ### Results
@@ -142,11 +142,16 @@ PAC-Learnability Analysis:
 
 The training set size meets the PAC-learnability requirement for these parameters.
 
+- Empirical error rate at best epoch: 0.0044
+- Empirical error (0.0044) <= epsilon (0.05)
+
+Validation success probability 0.9956 >= success rate 0.95!
+
 # Results
 
 The MLP achieved high accuracy on the test set, with strong performance across all cell classes. The training process was monitored using accuracy and loss curves, and a confusion matrix was generated to visualize classification performance. The model demonstrated reliable generalization to unseen cell images, confirming the effectiveness of the approach.
 
-Our final function has a validation accuracy of 99.56%, with a validation loss of 2.65% at epoch 48.
+Our final function has a validation accuracy of 0.9956, with a validation loss of 0.0413 at epoch 2.
 
 # Discussions
 
