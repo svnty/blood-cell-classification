@@ -142,6 +142,8 @@ The training set size meets the PAC-learnability requirement for these parameter
 
 The MLP achieved high accuracy on the test set, with strong performance across all cell classes. The training process was monitored using accuracy and loss curves, and a confusion matrix was generated to visualize classification performance. The model demonstrated reliable generalization to unseen cell images, confirming the effectiveness of the approach.
 
+Our final function has a validation accuracy of 99.56%, with a validation loss of 2.65% at epoch 48.
+
 # Discussions
 
 Future iterations should split the white blood cells into their specific types, as white blood cells encompass many categories, such as granulocytes and lymphocytes. The current data set doesn't have this labelled, but future data-sets could include this.
