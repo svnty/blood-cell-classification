@@ -139,13 +139,10 @@ PAC-Learnability Analysis:
 - Chosen delta (failure probability): 0.05
 - Required sample size for PAC-learnability: n >= 738
 - Actual training samples used: 1882
-
-The training set size meets the PAC-learnability requirement for these parameters.
-
 - Empirical error rate at best epoch: 0.0044
-- Empirical error (0.0044) <= epsilon (0.05)
 
-Validation success probability 0.9956 >= success rate 0.95!
+The training set size meets the PAC-learnability requirement for these parameters. Our final empirical error (0.0044) <= epsilon (0.05), success.
+
 
 # Results
 
