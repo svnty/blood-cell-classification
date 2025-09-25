@@ -6,6 +6,8 @@ Jake Spencer Walklate
 
 <http://github.com/svnty/blood-cell-classification>
 
+<https://www.kaggle.com/datasets/draaslan/blood-cell-detection-dataset>
+
 # Abstract
 
 In this study, we employ a Multi-Layer Perceptron (MLP) regression model to classify cell types using the publicly available Blood Cell Detection Dataset (BCDD). The dataset comprises annotated microscopic images of various blood cell classes, providing a robust basis for supervised learning. Our approach involved preparing the data, training the MLP to recognize features in the cells, and then testing its ability to correctly classify new, unseen samples.
@@ -53,11 +55,15 @@ The model was compiled with the Adam optimizer and categorical cross-entropy los
 
 ## ReLU vs sigmoid vs tanh
 
-ReLU activation was used in all hidden layers for its efficiency and ability to mitigate vanishing gradients. The output layer uses softmax for multi-class classification.
+ReLU activation was used in all hidden layers for its efficiency and ability to mitigate vanishing gradients. The output layer uses softmax for multi-class classification. ReLU is defined as the max of the pre-activation linear output, any values less than 0 become 0.
+
+```math
+ReLU: a = f(z) = max(0, z)
+```
 
 # PAC analysis
 
-For a PAC analysis, we have a hypothesis family (H), then we apply a learning algorithm which reduces us to a single hypothesis (h). We then calculate if the algorithm we have arrived upon is PAC-learnable. First, we define delta as our rate of failure (frequency of not landing within the error margin), and we define epsilon as the error margin we accept.
+For a PAC analysis, we have a hypothesis family (H) which we defined as a MLP, then we apply our learning algorithm (A) which reduces us to a single hypothesis (h). We then calculate if the algorithm we have arrived upon is PAC-learnable. First, we define delta as our rate of failure (frequency of not landing within the error margin), and we define epsilon as the error margin we accept.
 
 ## Samples sizes
 
@@ -72,7 +78,7 @@ n≥(1/(2ε^2)) ln⁡(2/δ)
 To be PAC-learnable, the probability that our algorithm succeeds, should be frequent enough that it exceeds the defined success rate.
 
 ```math
-Pr⁡[Error(k)≤ε]≥1- δ
+Pr⁡[Error(k)≤ε]≥1-δ
 ```
 
 ## Results
@@ -80,21 +86,24 @@ Pr⁡[Error(k)≤ε]≥1- δ
 PAC-Learnability Analysis:
 
 - Chosen epsilon (error margin): 0.05
-
 - Chosen delta (failure probability): 0.05
-
 - Required sample size for PAC-learnability: n >= 738
-
 - Actual training samples used: 1882
 
 The training set size meets the PAC-learnability requirement for these parameters.
 
-# Loss function
+# Loss function / Backpropagation
 
-For this multi-class classification task, we use the categorical cross-entropy loss function. This loss function measures the difference between the predicted probability distribution `p_i` (output by the softmax layer) and the true class labels (one-hot encoded). Minimizing categorical cross-entropy encourages the model to assign high probability to the correct class and low probability to incorrect classes.
+Backpropagation is the core algorithm (A) used to train neural networks, including Multi-Layer Perceptrons (MLPs). After the model computes its output and the loss is calculated, backpropagation works by differentiating the loss with respect to each weight in the network, moving backwards from the output layer to the input layer.
+
+This process uses the chain rule from calculus to efficiently compute gradients for each neuron in every layer. The chain rule allows the algorithm to propagate the error signal through the network, layer by layer, so that each neuron's weights are updated in proportion to their contribution to the final error. This enables the network to learn complex mappings from input to output by iteratively adjusting its parameters to minimize the loss.
+
+Backpropagation is essential for deep learning, as it makes it possible to train large networks with many layers and millions of parameters.
+
+For this multi-class classification task, we use the categorical cross-entropy loss function (L). This loss function measures the difference between the predicted probability distribution `p_i` (output by the softmax layer) and the true class labels (one-hot encoded). Minimizing categorical cross-entropy encourages the model to assign high probability to the correct class and low probability to incorrect classes.
 
 Mathematically, for a single sample with true class `y_i` and predicted probabilities `p_i`, the loss is:
-
+f(H)
 ```math
 L = -\sum_{i=1}^{C} y_i \log(p_i)
 ```
